@@ -1,0 +1,22 @@
+{
+  "name": "defyshield_audit",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+"test:gas": "npx hardhat test test/performance/"  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@gelatonetwork/relay-sdk": "^5.6.0",
+    "@liskhq/lisk-client": "^6.0.2",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@openzeppelin/test-helpers": "^0.5.16",
+    "chai": "^4.5.0",
+    "dotenv": "^16.5.0",
+    "ethers": "^6.14.3",
+    "hardhat": "^2.24.1",
+    "mocha": "^11.5.0"
+  }
+}

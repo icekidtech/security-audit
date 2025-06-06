@@ -58,12 +58,15 @@ export async function analyzeContract(source: string, contractAddress: string): 
   }
 }
 
+// Define a type for the AST returned by the parser
+type SolidityAST = ReturnType<typeof parser.parse>;
+
 /**
  * Detects reentrancy vulnerabilities by finding external calls before state changes.
  * SWC-107: https://swcregistry.io/docs/SWC-107
  * PRD Reference: Page 5 (Reentrancy detection)
  */
-function detectReentrancy(ast: parser.SourceUnit): Issue[] {
+function detectReentrancy(ast: SolidityAST): Issue[] {
   const issues: Issue[] = [];
   const externalCalls: Map<string, CodeLocation> = new Map();
   const stateChanges: Map<string, CodeLocation> = new Map();
@@ -128,7 +131,7 @@ function detectReentrancy(ast: parser.SourceUnit): Issue[] {
  * SWC-105: https://swcregistry.io/docs/SWC-105
  * PRD Reference: Page 5 (Access Control Flaws detection)
  */
-function detectAccessControlFlaws(ast: parser.SourceUnit): Issue[] {
+function detectAccessControlFlaws(ast: SolidityAST): Issue[] {
   const issues: Issue[] = [];
   
   parser.visit(ast, {
@@ -186,7 +189,7 @@ function detectAccessControlFlaws(ast: parser.SourceUnit): Issue[] {
  * SWC-128: https://swcregistry.io/docs/SWC-128
  * PRD Reference: Page 5 (Gas Inefficiencies detection)
  */
-function detectGasInefficiencies(ast: parser.SourceUnit): Issue[] {
+function detectGasInefficiencies(ast: SolidityAST): Issue[] {
   const issues: Issue[] = [];
   
   parser.visit(ast, {
@@ -252,7 +255,7 @@ function detectGasInefficiencies(ast: parser.SourceUnit): Issue[] {
  * SWC-104: https://swcregistry.io/docs/SWC-104
  * PRD Reference: Page 5 (Logic Errors detection)
  */
-function detectLogicErrors(ast: parser.SourceUnit): Issue[] {
+function detectLogicErrors(ast: SolidityAST): Issue[] {
   const issues: Issue[] = [];
   const conditionPatterns: Map<string, Set<string>> = new Map();
   

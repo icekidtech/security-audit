@@ -36,4 +36,5 @@ export interface ScoreResult {
   breakdown: ScoreBreakdown;
   issues: Issue[];
   timestamp: number;
+  disclaimer: string;  // Add this line
 }

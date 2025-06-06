@@ -89,7 +89,8 @@ function detectReentrancy(ast: SolidityAST): Issue[] {
           }
         },
         
-        AssignmentExpression: (assignNode) => {
+        // Use the correct node type for assignment expressions in Solidity
+        Assignment: (assignNode) => {
           // Track state changes (assignments)
           if (assignNode.loc) {
             stateChanges.set(functionName, assignNode.loc.start);

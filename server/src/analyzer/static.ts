@@ -63,7 +63,7 @@ export async function analyzeContract(source: string, contractAddress: string): 
  * SWC-107: https://swcregistry.io/docs/SWC-107
  * PRD Reference: Page 5 (Reentrancy detection)
  */
-function detectReentrancy(ast: parser.ASTNode): Issue[] {
+function detectReentrancy(ast: parser.SourceUnit): Issue[] {
   const issues: Issue[] = [];
   const externalCalls: Map<string, CodeLocation> = new Map();
   const stateChanges: Map<string, CodeLocation> = new Map();
@@ -128,7 +128,7 @@ function detectReentrancy(ast: parser.ASTNode): Issue[] {
  * SWC-105: https://swcregistry.io/docs/SWC-105
  * PRD Reference: Page 5 (Access Control Flaws detection)
  */
-function detectAccessControlFlaws(ast: parser.ASTNode): Issue[] {
+function detectAccessControlFlaws(ast: parser.SourceUnit): Issue[] {
   const issues: Issue[] = [];
   
   parser.visit(ast, {
@@ -186,7 +186,7 @@ function detectAccessControlFlaws(ast: parser.ASTNode): Issue[] {
  * SWC-128: https://swcregistry.io/docs/SWC-128
  * PRD Reference: Page 5 (Gas Inefficiencies detection)
  */
-function detectGasInefficiencies(ast: parser.ASTNode): Issue[] {
+function detectGasInefficiencies(ast: parser.SourceUnit): Issue[] {
   const issues: Issue[] = [];
   
   parser.visit(ast, {
@@ -252,7 +252,7 @@ function detectGasInefficiencies(ast: parser.ASTNode): Issue[] {
  * SWC-104: https://swcregistry.io/docs/SWC-104
  * PRD Reference: Page 5 (Logic Errors detection)
  */
-function detectLogicErrors(ast: parser.ASTNode): Issue[] {
+function detectLogicErrors(ast: parser.SourceUnit): Issue[] {
   const issues: Issue[] = [];
   const conditionPatterns: Map<string, Set<string>> = new Map();
   

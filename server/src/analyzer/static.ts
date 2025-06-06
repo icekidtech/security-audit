@@ -2,6 +2,7 @@ import * as parser from '@solidity-parser/parser';
 import { Issue, IssueType, IssueSeverity, AnalysisResult, CodeLocation } from './types';
 import { logger } from '../utils/logger';
 import { v4 as uuidv4 } from 'uuid';
+import { AssignmentStatement } from '@solidity-parser/parser';
 
 /**
  * Analyzes Solidity contract source code for vulnerabilities.
@@ -89,8 +90,8 @@ function detectReentrancy(ast: SolidityAST): Issue[] {
           }
         },
         
-        // Use the correct node type for assignment expressions in Solidity
-        Assignment: (assignNode) => {
+        // Use the correct type from the parser library
+        AssignmentStatement: (assignNode: AssignmentNode) => {
           // Track state changes (assignments)
           if (assignNode.loc) {
             stateChanges.set(functionName, assignNode.loc.start);
@@ -339,4 +340,19 @@ function detectLogicErrors(ast: SolidityAST): Issue[] {
   });
   
   return issues;
+}
+
+interface AssignmentNode {
+  loc?: {
+    start: {
+      line: number;
+      column: number;
+    };
+  };
+  // Add other properties as needed
+}
+
+// Then use it
+AssignmentStatement: (assignNode: AssignmentNode) => {
+  // ...
 }

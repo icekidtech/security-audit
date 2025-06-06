@@ -212,7 +212,7 @@ function detectGasInefficiencies(ast: SolidityAST): Issue[] {
       parser.visit(node.body, {
         ExpressionStatement: (node) => {
           // Check if this is an assignment
-          if (node.expression && node.expression.type === 'AssignmentExpression') {
+          if (node.expression && node.expression.type === 'Assignment') {
             assignmentCount++;
             if (assignmentCount > 1) {
               hasMultipleAssignments = true;
